@@ -3,9 +3,6 @@
  * Parte 1: Sistema de Links Curtos
  *
  * Domínio final: https://www.klicky.com.br/{codigo}
- *
- * Armazenamento: arquivo JSON (simples, zero dependência nativa)
- * Em produção você pode trocar facilmente por SQLite/Postgres.
  */
 
 const express = require('express');
@@ -18,7 +15,7 @@ const rateLimit = require('express-rate-limit');
 
 // ====================== CONFIGURAÇÃO ======================
 const PORT = process.env.PORT || 3000;
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'; // → https://www.klicky.com.br
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const SHORT_CODE_LENGTH = 7;
 
 // Códigos amigáveis (sem 0/O, 1/l/I)
@@ -43,7 +40,7 @@ function loadDB() {
   } catch (e) {
     console.error('Erro ao ler DB:', e.message);
   }
-  return { links: {} }; // { short_code: { original_url, title, clicks, created_at, last_clicked_at } }
+  return { links: {} };
 }
 
 function saveDB(db) {
@@ -58,7 +55,10 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(express.json({ limit: '10kb' }));
+
+// Serve arquivos estáticos (tanto da pasta public quanto da raiz)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 const createLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -83,12 +83,23 @@ function normalizeUrl(url) {
   return url;
 }
 
+// ====================== ROTA PRINCIPAL ======================
+app.get('/', (req, res) => {
+  // Tenta primeiro na pasta public, depois na raiz
+  const publicIndex = path.join(__dirname, 'public', 'index.html');
+  const rootIndex = path.join(__dirname, 'index.html');
+
+  if (fs.existsSync(publicIndex)) {
+    return res.sendFile(publicIndex);
+  }
+  if (fs.existsSync(rootIndex)) {
+    return res.sendFile(rootIndex);
+  }
+  res.status(404).send('Página inicial não encontrada. Verifique se o index.html foi enviado.');
+});
+
 // ====================== API ======================
 
-/**
- * POST /api/shorten
- * Body: { url, customCode?, title? }
- */
 app.post('/api/shorten', createLimiter, (req, res) => {
   try {
     let { url, customCode, title } = req.body;
@@ -150,9 +161,6 @@ app.post('/api/shorten', createLimiter, (req, res) => {
   }
 });
 
-/**
- * GET /api/stats/:code
- */
 app.get('/api/stats/:code', (req, res) => {
   const link = db.links[req.params.code];
   if (!link) {
@@ -169,9 +177,6 @@ app.get('/api/stats/:code', (req, res) => {
   });
 });
 
-/**
- * GET /api/links  → lista os últimos
- */
 app.get('/api/links', (req, res) => {
   const list = Object.entries(db.links)
     .map(([code, data]) => ({
@@ -189,7 +194,6 @@ app.get('/api/links', (req, res) => {
 });
 
 // ====================== REDIRECIONAMENTO ======================
-
 app.get('/:code', (req, res) => {
   const { code } = req.params;
 
@@ -233,11 +237,7 @@ app.get('/:code', (req, res) => {
 
 // ====================== START ======================
 app.listen(PORT, () => {
-  console.log(`
-🚀 Klicky Shortener rodando!`);
-  console.log(`   Local:    http://localhost:${PORT}`);
-  console.log(`   Base URL: ${BASE_URL}`);
-  console.log(`
-   Exemplo:  ${BASE_URL}/abc1234
-`);
+  console.log(`\n🚀 Klicky Shortener rodando!`);
+  console.log(`   Porta: ${PORT}`);
+  console.log(`   Base URL: ${BASE_URL}\n`);
 });
