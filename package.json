@@ -1,0 +1,21 @@
+{
+  "name": "klicky-shortener",
+  "version": "1.0.0",
+  "description": "Encurtador de links da marca Klicky - Parte 1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "nanoid": "^3.3.8",
+    "cors": "^2.8.5",
+    "helmet": "^8.0.0",
+    "express-rate-limit": "^7.5.0"
+  },
+
+  "engines": {
+    "node": ">=18"
+  }
+}
