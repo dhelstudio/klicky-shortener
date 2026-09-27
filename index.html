@@ -3,31 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Klicky — Encurtador de Links</title>
+  <title>Klicky — Encurte seus links</title>
   <link rel="icon" type="image/png" href="flaticon.png" />
-  
-  <!-- Fontes próximas ao Blacker Sans (substitua depois pelas oficiais se tiver a licença) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --purple: #9259E7;
       --pink: #FAB5D4;
-      --blue: #42B2FC;
-      --green: #77E0B5;
       --pink2: #F182AD;
-      --gray: #D1D5D6;
       --dark: #4B4B4D;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       min-height: 100vh;
       font-family: 'Outfit', system-ui, sans-serif;
@@ -38,8 +26,6 @@
       justify-content: center;
       padding: 20px;
     }
-
-    /* Card estilo celular */
     .phone-card {
       width: 100%;
       max-width: 380px;
@@ -48,22 +34,14 @@
       padding: 40px 32px 28px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       text-align: center;
-      position: relative;
     }
-
-    /* Logo */
-    .logo {
-      margin-bottom: 18px;
-    }
-
+    .logo { margin-bottom: 18px; }
     .logo img {
       width: 220px;
       height: auto;
       display: block;
       margin: 0 auto;
     }
-
-    /* Frase */
     .tagline {
       font-size: 15px;
       line-height: 1.45;
@@ -72,24 +50,13 @@
       margin-bottom: 28px;
       padding: 0 8px;
     }
-
-    .tagline strong {
-      font-weight: 700;
-    }
-
-    /* Título Login */
     .login-title {
       font-size: 18px;
       font-weight: 700;
       color: #4B4B4D;
       margin-bottom: 18px;
     }
-
-    /* Inputs */
-    .form-group {
-      margin-bottom: 12px;
-    }
-
+    .form-group { margin-bottom: 12px; }
     input[type="text"],
     input[type="password"] {
       width: 100%;
@@ -101,18 +68,9 @@
       font-size: 15px;
       color: #4B4B4D;
       outline: none;
-      transition: background 0.2s;
     }
-
-    input::placeholder {
-      color: #9CA3AF;
-    }
-
-    input:focus {
-      background: #dedede;
-    }
-
-    /* Botão Login */
+    input::placeholder { color: #9CA3AF; }
+    input:focus { background: #dedede; }
     .btn-login {
       width: 100%;
       padding: 14px;
@@ -128,17 +86,10 @@
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
     }
-
     .btn-login:hover {
       transform: translateY(-1px);
       box-shadow: 0 8px 20px rgba(146, 89, 231, 0.35);
     }
-
-    .btn-login:active {
-      transform: translateY(0);
-    }
-
-    /* Forgot */
     .forgot {
       display: block;
       margin-top: 14px;
@@ -146,17 +97,8 @@
       color: #6B7280;
       text-decoration: none;
     }
-
-    .forgot:hover {
-      color: #9259E7;
-    }
-
-    /* Barra de cores + rodapé */
-    .footer {
-      margin-top: 28px;
-      padding-top: 18px;
-    }
-
+    .forgot:hover { color: #9259E7; }
+    .footer { margin-top: 28px; padding-top: 18px; }
     .color-bar {
       display: flex;
       height: 4px;
@@ -164,50 +106,30 @@
       overflow: hidden;
       margin-bottom: 12px;
     }
-
-    .color-bar span {
-      flex: 1;
-    }
-
+    .color-bar span { flex: 1; }
     .footer-text {
       font-size: 11px;
       color: #9CA3AF;
       line-height: 1.4;
     }
-
-    /* Responsivo */
     @media (max-width: 420px) {
-      .phone-card {
-        padding: 32px 24px 24px;
-        border-radius: 24px;
-      }
-      .logo img {
-        width: 190px;
-      }
-      .tagline {
-        font-size: 14px;
-      }
+      .phone-card { padding: 32px 24px 24px; border-radius: 24px; }
+      .logo img { width: 190px; }
+      .tagline { font-size: 14px; }
     }
   </style>
 </head>
 <body>
-
   <div class="phone-card">
-    <!-- Logo -->
     <div class="logo">
       <img src="logo_klicly.png" alt="Klicky!" />
     </div>
-
-    <!-- Frase -->
     <p class="tagline">
       Encurte seus links da sua<br>
       presença digital de forma rápida,<br>
       profissional e amigável!
     </p>
-
-    <!-- Login -->
     <h2 class="login-title">User Login</h2>
-
     <form id="loginForm">
       <div class="form-group">
         <input type="text" id="username" placeholder="Username" required autocomplete="username" />
@@ -215,13 +137,9 @@
       <div class="form-group">
         <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
       </div>
-
       <button type="submit" class="btn-login">LOGIN</button>
     </form>
-
     <a href="#" class="forgot">Forgot Username or Password?</a>
-
-    <!-- Rodapé -->
     <div class="footer">
       <div class="color-bar">
         <span style="background:#9259E7"></span>
@@ -239,20 +157,13 @@
   </div>
 
   <script>
-    // Login temporário (interno)
-    // Senha padrão enquanto não temos autenticação real:
-    // usuário: admin   |   senha: klicky2026
-
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
       const user = document.getElementById('username').value.trim();
       const pass = document.getElementById('password').value;
 
-      // Validação simples (pode trocar depois)
-      if (user === 'andrehdhel' && pass === 'klicky@81036288') {
-        // Redireciona para a página de encurtar links
-        window.location.href = 'app.html';
+      if (user === 'admin' && pass === 'klicky2026') {
+        window.location.href = '/app.html';
       } else {
         alert('Usuário ou senha incorretos.');
       }
