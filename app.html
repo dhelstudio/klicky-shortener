@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Klicky — Encurtador de Links</title>
-  <meta name="description" content="Encurte seus links com a marca Klicky. Rápido, simples e profissional." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" href="flaticon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,57 +14,37 @@
       --border: #2a2a2e;
       --text: #f4f4f5;
       --text-muted: #a1a1aa;
-      --primary: #7c3aed;
-      --primary-hover: #6d28d9;
+      --primary: #9259E7;
+      --primary-hover: #7c3aed;
       --success: #22c55e;
-      --error: #ef4444;
       --radius: 12px;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.5;
     }
-
     .container {
       max-width: 640px;
       margin: 0 auto;
       padding: 2rem 1.25rem;
     }
-
-    /* Header */
     header {
       text-align: center;
       margin-bottom: 2.5rem;
       padding-top: 1.5rem;
     }
-
     .logo {
       font-size: 2rem;
       font-weight: 700;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      background: linear-gradient(135deg, #a78bfa, #9259E7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
       margin-bottom: 0.5rem;
     }
-
-    .tagline {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* Card principal */
+    .tagline { color: var(--text-muted); font-size: 0.95rem; }
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -74,13 +52,7 @@
       padding: 1.75rem;
       margin-bottom: 1.5rem;
     }
-
-    .card h2 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-    }
-
+    .card h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 1.25rem; }
     label {
       display: block;
       font-size: 0.85rem;
@@ -88,9 +60,7 @@
       color: var(--text-muted);
       margin-bottom: 0.4rem;
     }
-
-    input[type="url"],
-    input[type="text"] {
+    input[type="url"], input[type="text"] {
       width: 100%;
       padding: 0.85rem 1rem;
       background: var(--surface-2);
@@ -99,24 +69,11 @@
       color: var(--text);
       font-size: 0.95rem;
       font-family: inherit;
-      transition: border-color 0.15s;
       margin-bottom: 1rem;
     }
-
-    input:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    input::placeholder {
-      color: #52525b;
-    }
-
-    .optional {
-      font-weight: 400;
-      color: #71717a;
-    }
-
+    input:focus { outline: none; border-color: var(--primary); }
+    input::placeholder { color: #52525b; }
+    .optional { font-weight: 400; color: #71717a; }
     .btn {
       width: 100%;
       padding: 0.9rem 1.5rem;
@@ -128,23 +85,9 @@
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
     }
-
-    .btn:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* Resultado */
+    .btn:hover { background: var(--primary-hover); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
     .result {
       display: none;
       background: var(--surface);
@@ -152,64 +95,25 @@
       border-radius: var(--radius);
       padding: 1.5rem;
       margin-bottom: 1.5rem;
-      animation: fadeIn 0.25s ease;
     }
-
-    .result.show {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .result-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .result-url {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
+    .result.show { display: block; }
+    .result-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .result-url { display: flex; gap: 0.5rem; align-items: center; }
     .result-url input {
       margin-bottom: 0;
       flex: 1;
       font-weight: 500;
       color: var(--primary);
     }
-
     .btn-copy {
       width: auto;
       padding: 0.75rem 1.1rem;
-      white-space: nowrap;
       background: var(--surface-2);
       border: 1px solid var(--border);
       color: var(--text);
     }
-
-    .btn-copy:hover {
-      background: var(--border);
-    }
-
-    .btn-copy.copied {
-      background: var(--success);
-      border-color: var(--success);
-      color: white;
-    }
-
-    .result-meta {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      word-break: break-all;
-    }
-
-    /* Erro */
+    .btn-copy.copied { background: var(--success); border-color: var(--success); color: white; }
+    .result-meta { margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); word-break: break-all; }
     .error-msg {
       display: none;
       background: rgba(239, 68, 68, 0.1);
@@ -220,23 +124,9 @@
       margin-bottom: 1rem;
       font-size: 0.9rem;
     }
-
-    .error-msg.show {
-      display: block;
-    }
-
-    /* Lista de links recentes */
-    .recent {
-      margin-top: 2rem;
-    }
-
-    .recent h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
+    .error-msg.show { display: block; }
+    .recent { margin-top: 2rem; }
+    .recent h3 { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); margin-bottom: 1rem; }
     .link-item {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -249,23 +139,8 @@
       gap: 1rem;
       font-size: 0.9rem;
     }
-
-    .link-item a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .link-item a:hover {
-      text-decoration: underline;
-    }
-
-    .link-clicks {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      white-space: nowrap;
-    }
-
+    .link-item a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .link-clicks { color: var(--text-muted); font-size: 0.8rem; white-space: nowrap; }
     .original-preview {
       color: var(--text-muted);
       font-size: 0.8rem;
@@ -274,18 +149,12 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
-    /* Footer */
     footer {
       text-align: center;
       margin-top: 3rem;
       padding-bottom: 2rem;
       color: var(--text-muted);
       font-size: 0.8rem;
-    }
-
-    footer span {
-      color: #a78bfa;
     }
   </style>
 </head>
@@ -298,47 +167,18 @@
 
     <div class="card">
       <h2>Criar link curto</h2>
-
       <div id="error" class="error-msg"></div>
-
       <form id="form">
         <label for="url">URL longa *</label>
-        <input
-          type="url"
-          id="url"
-          name="url"
-          placeholder="https://exemplo.com/pagina-muito-longa..."
-          required
-          autocomplete="off"
-        />
-
+        <input type="url" id="url" placeholder="https://exemplo.com/pagina-muito-longa..." required />
         <label for="customCode">Código personalizado <span class="optional">(opcional)</span></label>
-        <input
-          type="text"
-          id="customCode"
-          name="customCode"
-          placeholder="ex: promo-verao"
-          maxlength="30"
-          autocomplete="off"
-        />
-
+        <input type="text" id="customCode" placeholder="ex: promo-verao" maxlength="30" />
         <label for="title">Título / Nome do link <span class="optional">(opcional)</span></label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          placeholder="ex: Página de vendas - Cliente X"
-          maxlength="100"
-          autocomplete="off"
-        />
-
-        <button type="submit" class="btn" id="btnSubmit">
-          Encurtar link
-        </button>
+        <input type="text" id="title" placeholder="ex: Página de vendas - Cliente X" maxlength="100" />
+        <button type="submit" class="btn" id="btnSubmit">Encurtar link</button>
       </form>
     </div>
 
-    <!-- Resultado -->
     <div id="result" class="result">
       <div class="result-label">Seu link curto:</div>
       <div class="result-url">
@@ -348,15 +188,12 @@
       <div class="result-meta" id="originalPreview"></div>
     </div>
 
-    <!-- Links recentes -->
-    <div class="recent" id="recentSection" style="display: none;">
+    <div class="recent" id="recentSection" style="display:none;">
       <h3>Últimos links criados</h3>
       <div id="recentList"></div>
     </div>
 
-    <footer>
-      Klicky <span>♥</span> uma marca <strong>Dhel Studio</strong> · Versão 1.0 Beta — Links Curtos
-    </footer>
+    <footer>Klicky · Dhel Studio © 2026</footer>
   </div>
 
   <script>
@@ -370,7 +207,6 @@
     const recentSection = document.getElementById('recentSection');
     const recentList = document.getElementById('recentList');
 
-    // Carrega links recentes ao abrir
     loadRecent();
 
     form.addEventListener('submit', async (e) => {
@@ -392,23 +228,14 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-
         const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Erro ao criar link');
 
-        if (!res.ok) {
-          throw new Error(data.error || 'Erro ao criar link');
-        }
-
-        // Mostra resultado
         shortUrlInput.value = data.short_url;
         originalPreview.textContent = `Destino: ${data.original_url}`;
         resultEl.classList.add('show');
-
-        // Limpa campos opcionais
         document.getElementById('customCode').value = '';
         document.getElementById('title').value = '';
-
-        // Atualiza lista
         loadRecent();
       } catch (err) {
         errorEl.textContent = err.message;
@@ -419,7 +246,6 @@
       }
     });
 
-    // Copiar link
     btnCopy.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(shortUrlInput.value);
@@ -432,7 +258,6 @@
       } catch {
         shortUrlInput.select();
         document.execCommand('copy');
-        btnCopy.textContent = 'Copiado!';
       }
     });
 
@@ -440,12 +265,10 @@
       try {
         const res = await fetch('/api/links');
         const links = await res.json();
-
         if (!links.length) {
           recentSection.style.display = 'none';
           return;
         }
-
         recentSection.style.display = 'block';
         recentList.innerHTML = links.slice(0, 8).map(l => `
           <div class="link-item">
@@ -456,9 +279,7 @@
             <div class="link-clicks">${l.clicks} clique${l.clicks !== 1 ? 's' : ''}</div>
           </div>
         `).join('');
-      } catch {
-        // silencioso
-      }
+      } catch {}
     }
   </script>
 </body>
