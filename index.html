@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Klicky — Encurtador de Links</title>
-  <meta name="description" content="Encurte seus links com a marca Klicky. Rápido, simples e profissional." />
+  <title>Klicky — Encurte seus links</title>
+  <link rel="icon" type="image/png" href="flaticon.png" />
+  
+  <!-- Fontes próximas ao Blacker Sans (substitua depois pelas oficiais se tiver a licença) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0a0a0b;
-      --surface: #141416;
-      --surface-2: #1c1c1f;
-      --border: #2a2a2e;
-      --text: #f4f4f5;
-      --text-muted: #a1a1aa;
-      --primary: #7c3aed;
-      --primary-hover: #6d28d9;
-      --success: #22c55e;
-      --error: #ef4444;
-      --radius: 12px;
+      --purple: #9259E7;
+      --pink: #FAB5D4;
+      --blue: #42B2FC;
+      --green: #77E0B5;
+      --pink2: #F182AD;
+      --gray: #D1D5D6;
+      --dark: #4B4B4D;
     }
 
     * {
@@ -30,436 +29,234 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
       min-height: 100vh;
-      line-height: 1.5;
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: linear-gradient(160deg, #9259E7 0%, #FAB5D4 100%);
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem;
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      padding-top: 1.5rem;
-    }
-
-    .logo {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #a78bfa, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
-    }
-
-    .tagline {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* Card principal */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .card h2 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
-    }
-
-    input[type="url"],
-    input[type="text"] {
+    /* Card estilo celular */
+    .phone-card {
       width: 100%;
-      padding: 0.85rem 1rem;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 0.95rem;
-      font-family: inherit;
-      transition: border-color 0.15s;
-      margin-bottom: 1rem;
+      max-width: 380px;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 40px 32px 28px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      position: relative;
     }
 
-    input:focus {
+    /* Logo */
+    .logo {
+      margin-bottom: 18px;
+    }
+
+    .logo img {
+      width: 220px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Frase */
+    .tagline {
+      font-size: 15px;
+      line-height: 1.45;
+      color: #4B4B4D;
+      font-weight: 500;
+      margin-bottom: 28px;
+      padding: 0 8px;
+    }
+
+    .tagline strong {
+      font-weight: 700;
+    }
+
+    /* Título Login */
+    .login-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #4B4B4D;
+      margin-bottom: 18px;
+    }
+
+    /* Inputs */
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 50px;
+      background: #E8E8E8;
+      font-family: inherit;
+      font-size: 15px;
+      color: #4B4B4D;
       outline: none;
-      border-color: var(--primary);
+      transition: background 0.2s;
     }
 
     input::placeholder {
-      color: #52525b;
+      color: #9CA3AF;
     }
 
-    .optional {
-      font-weight: 400;
-      color: #71717a;
+    input:focus {
+      background: #dedede;
     }
 
-    .btn {
+    /* Botão Login */
+    .btn-login {
       width: 100%;
-      padding: 0.9rem 1.5rem;
-      background: var(--primary);
-      color: white;
+      padding: 14px;
+      margin-top: 8px;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-    }
-
-    .btn:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* Resultado */
-    .result {
-      display: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      animation: fadeIn 0.25s ease;
-    }
-
-    .result.show {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .result-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .result-url {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .result-url input {
-      margin-bottom: 0;
-      flex: 1;
-      font-weight: 500;
-      color: var(--primary);
-    }
-
-    .btn-copy {
-      width: auto;
-      padding: 0.75rem 1.1rem;
-      white-space: nowrap;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .btn-copy:hover {
-      background: var(--border);
-    }
-
-    .btn-copy.copied {
-      background: var(--success);
-      border-color: var(--success);
+      border-radius: 50px;
+      background: linear-gradient(90deg, #9259E7 0%, #F182AD 100%);
       color: white;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
 
-    .result-meta {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      word-break: break-all;
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(146, 89, 231, 0.35);
     }
 
-    /* Erro */
-    .error-msg {
-      display: none;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #fca5a5;
-      padding: 0.85rem 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
+    .btn-login:active {
+      transform: translateY(0);
     }
 
-    .error-msg.show {
+    /* Forgot */
+    .forgot {
       display: block;
-    }
-
-    /* Lista de links recentes */
-    .recent {
-      margin-top: 2rem;
-    }
-
-    .recent h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .link-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.9rem 1rem;
-      margin-bottom: 0.6rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      font-size: 0.9rem;
-    }
-
-    .link-item a {
-      color: var(--primary);
+      margin-top: 14px;
+      font-size: 13px;
+      color: #6B7280;
       text-decoration: none;
-      font-weight: 500;
     }
 
-    .link-item a:hover {
-      text-decoration: underline;
+    .forgot:hover {
+      color: #9259E7;
     }
 
-    .link-clicks {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      white-space: nowrap;
+    /* Barra de cores + rodapé */
+    .footer {
+      margin-top: 28px;
+      padding-top: 18px;
     }
 
-    .original-preview {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      max-width: 200px;
+    .color-bar {
+      display: flex;
+      height: 4px;
+      border-radius: 4px;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      margin-bottom: 12px;
     }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      padding-bottom: 2rem;
-      color: var(--text-muted);
-      font-size: 0.8rem;
+    .color-bar span {
+      flex: 1;
     }
 
-    footer span {
-      color: #a78bfa;
+    .footer-text {
+      font-size: 11px;
+      color: #9CA3AF;
+      line-height: 1.4;
+    }
+
+    /* Responsivo */
+    @media (max-width: 420px) {
+      .phone-card {
+        padding: 32px 24px 24px;
+        border-radius: 24px;
+      }
+      .logo img {
+        width: 190px;
+      }
+      .tagline {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">klicky</div>
-      <p class="tagline">Encurte links com a sua marca. Simples, rápido e profissional.</p>
-    </header>
 
-    <div class="card">
-      <h2>Criar link curto</h2>
-
-      <div id="error" class="error-msg"></div>
-
-      <form id="form">
-        <label for="url">URL longa *</label>
-        <input
-          type="url"
-          id="url"
-          name="url"
-          placeholder="https://exemplo.com/pagina-muito-longa..."
-          required
-          autocomplete="off"
-        />
-
-        <label for="customCode">Código personalizado <span class="optional">(opcional)</span></label>
-        <input
-          type="text"
-          id="customCode"
-          name="customCode"
-          placeholder="ex: promo-verao"
-          maxlength="30"
-          autocomplete="off"
-        />
-
-        <label for="title">Título / Nome do link <span class="optional">(opcional)</span></label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          placeholder="ex: Página de vendas - Cliente X"
-          maxlength="100"
-          autocomplete="off"
-        />
-
-        <button type="submit" class="btn" id="btnSubmit">
-          Encurtar link
-        </button>
-      </form>
+  <div class="phone-card">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="logo_klicly.png" alt="Klicky!" />
     </div>
 
-    <!-- Resultado -->
-    <div id="result" class="result">
-      <div class="result-label">Seu link curto:</div>
-      <div class="result-url">
-        <input type="text" id="shortUrl" readonly />
-        <button type="button" class="btn btn-copy" id="btnCopy">Copiar</button>
+    <!-- Frase -->
+    <p class="tagline">
+      Encurte seus links da sua<br>
+      presença digital de forma rápida,<br>
+      profissional e amigável!
+    </p>
+
+    <!-- Login -->
+    <h2 class="login-title">User Login</h2>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <input type="text" id="username" placeholder="Username" required autocomplete="username" />
       </div>
-      <div class="result-meta" id="originalPreview"></div>
-    </div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
+      </div>
 
-    <!-- Links recentes -->
-    <div class="recent" id="recentSection" style="display: none;">
-      <h3>Últimos links criados</h3>
-      <div id="recentList"></div>
-    </div>
+      <button type="submit" class="btn-login">LOGIN</button>
+    </form>
 
-    <footer>
-      Klicky <span>♥</span> uma marca <strong>Dhel Studio</strong> · Versão 1.0 Beta — Links Curtos
-    </footer>
+    <a href="#" class="forgot">Forgot Username or Password?</a>
+
+    <!-- Rodapé -->
+    <div class="footer">
+      <div class="color-bar">
+        <span style="background:#9259E7"></span>
+        <span style="background:#FAB5D4"></span>
+        <span style="background:#42B2FC"></span>
+        <span style="background:#77E0B5"></span>
+        <span style="background:#F182AD"></span>
+        <span style="background:#D1D5D6"></span>
+      </div>
+      <p class="footer-text">
+        Klicky is a Dhel Studio brand © 2026<br>
+        All rights reserved. Version 1.0
+      </p>
+    </div>
   </div>
 
   <script>
-    const form = document.getElementById('form');
-    const btnSubmit = document.getElementById('btnSubmit');
-    const errorEl = document.getElementById('error');
-    const resultEl = document.getElementById('result');
-    const shortUrlInput = document.getElementById('shortUrl');
-    const originalPreview = document.getElementById('originalPreview');
-    const btnCopy = document.getElementById('btnCopy');
-    const recentSection = document.getElementById('recentSection');
-    const recentList = document.getElementById('recentList');
+    // Login temporário (interno)
+    // Senha padrão enquanto não temos autenticação real:
+    // usuário: admin   |   senha: klicky2026
 
-    // Carrega links recentes ao abrir
-    loadRecent();
-
-    form.addEventListener('submit', async (e) => {
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      errorEl.classList.remove('show');
-      resultEl.classList.remove('show');
-      btnSubmit.disabled = true;
-      btnSubmit.textContent = 'Gerando...';
 
-      const payload = {
-        url: document.getElementById('url').value.trim(),
-        customCode: document.getElementById('customCode').value.trim() || undefined,
-        title: document.getElementById('title').value.trim() || undefined
-      };
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value;
 
-      try {
-        const res = await fetch('/api/shorten', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.error || 'Erro ao criar link');
-        }
-
-        // Mostra resultado
-        shortUrlInput.value = data.short_url;
-        originalPreview.textContent = `Destino: ${data.original_url}`;
-        resultEl.classList.add('show');
-
-        // Limpa campos opcionais
-        document.getElementById('customCode').value = '';
-        document.getElementById('title').value = '';
-
-        // Atualiza lista
-        loadRecent();
-      } catch (err) {
-        errorEl.textContent = err.message;
-        errorEl.classList.add('show');
-      } finally {
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = 'Encurtar link';
+      // Validação simples (pode trocar depois)
+      if (user === 'admin' && pass === 'klicky2026') {
+        // Redireciona para a página de encurtar links
+        window.location.href = '/app.html';
+      } else {
+        alert('Usuário ou senha incorretos.');
       }
     });
-
-    // Copiar link
-    btnCopy.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(shortUrlInput.value);
-        btnCopy.textContent = 'Copiado!';
-        btnCopy.classList.add('copied');
-        setTimeout(() => {
-          btnCopy.textContent = 'Copiar';
-          btnCopy.classList.remove('copied');
-        }, 2000);
-      } catch {
-        shortUrlInput.select();
-        document.execCommand('copy');
-        btnCopy.textContent = 'Copiado!';
-      }
-    });
-
-    async function loadRecent() {
-      try {
-        const res = await fetch('/api/links');
-        const links = await res.json();
-
-        if (!links.length) {
-          recentSection.style.display = 'none';
-          return;
-        }
-
-        recentSection.style.display = 'block';
-        recentList.innerHTML = links.slice(0, 8).map(l => `
-          <div class="link-item">
-            <div>
-              <a href="${l.short_url}" target="_blank">${l.short_url}</a>
-              <div class="original-preview">${l.title || l.original_url}</div>
-            </div>
-            <div class="link-clicks">${l.clicks} clique${l.clicks !== 1 ? 's' : ''}</div>
-          </div>
-        `).join('');
-      } catch {
-        // silencioso
-      }
-    }
   </script>
 </body>
 </html>
