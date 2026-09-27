@@ -1,8 +1,6 @@
 /**
  * Klicky - Encurtador de Links
- * Parte 1: Sistema de Links Curtos
- *
- * Domínio final: https://www.klicky.com.br/{codigo}
+ * Versão com página de login + app
  */
 
 const express = require('express');
@@ -13,18 +11,16 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
-// ====================== CONFIGURAÇÃO ======================
 const PORT = process.env.PORT || 3000;
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+const BASE_URL = process.env.BASE_URL || 'https://www.klicky.com.br';
 const SHORT_CODE_LENGTH = 7;
 
-// Códigos amigáveis (sem 0/O, 1/l/I)
 const generateCode = customAlphabet(
   '23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz',
   SHORT_CODE_LENGTH
 );
 
-// ====================== ARMAZENAMENTO (JSON) ======================
+// ====================== BANCO DE DADOS ======================
 const dataDir = path.join(__dirname, 'data');
 const dbPath = path.join(dataDir, 'links.json');
 
@@ -56,8 +52,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(express.json({ limit: '10kb' }));
 
-// Serve arquivos estáticos (tanto da pasta public quanto da raiz)
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve todos os arquivos da raiz (index.html, app.html, imagens, etc.)
 app.use(express.static(__dirname));
 
 const createLimiter = rateLimit({
@@ -83,23 +78,19 @@ function normalizeUrl(url) {
   return url;
 }
 
-// ====================== ROTA PRINCIPAL ======================
-app.get('/', (req, res) => {
-  // Tenta primeiro na pasta public, depois na raiz
-  const publicIndex = path.join(__dirname, 'public', 'index.html');
-  const rootIndex = path.join(__dirname, 'index.html');
+// ====================== ROTAS ======================
 
-  if (fs.existsSync(publicIndex)) {
-    return res.sendFile(publicIndex);
-  }
-  if (fs.existsSync(rootIndex)) {
-    return res.sendFile(rootIndex);
-  }
-  res.status(404).send('Página inicial não encontrada. Verifique se o index.html foi enviado.');
+// Página inicial (login)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// ====================== API ======================
+// Página do encurtador (após login)
+app.get('/app.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'app.html'));
+});
 
+// API - Encurtar
 app.post('/api/shorten', createLimiter, (req, res) => {
   try {
     let { url, customCode, title } = req.body;
@@ -131,7 +122,7 @@ app.post('/api/shorten', createLimiter, (req, res) => {
         shortCode = generateCode();
         attempts++;
         if (attempts > 15) {
-          return res.status(500).json({ error: 'Não foi possível gerar código único. Tente novamente.' });
+          return res.status(500).json({ error: 'Não foi possível gerar código único.' });
         }
       } while (db.links[shortCode]);
     }
@@ -146,26 +137,24 @@ app.post('/api/shorten', createLimiter, (req, res) => {
     };
     saveDB(db);
 
-    const shortUrl = `${BASE_URL}/${shortCode}`;
-
     res.status(201).json({
       success: true,
-      short_url: shortUrl,
+      short_url: `${BASE_URL}/${shortCode}`,
       short_code: shortCode,
       original_url: url,
       title: title || null
     });
   } catch (err) {
-    console.error('Erro ao encurtar:', err);
+    console.error(err);
     res.status(500).json({ error: 'Erro interno ao criar link' });
   }
 });
 
+// API - Estatísticas
 app.get('/api/stats/:code', (req, res) => {
   const link = db.links[req.params.code];
-  if (!link) {
-    return res.status(404).json({ error: 'Link não encontrado' });
-  }
+  if (!link) return res.status(404).json({ error: 'Link não encontrado' });
+
   res.json({
     short_code: req.params.code,
     short_url: `${BASE_URL}/${req.params.code}`,
@@ -177,6 +166,7 @@ app.get('/api/stats/:code', (req, res) => {
   });
 });
 
+// API - Lista de links
 app.get('/api/links', (req, res) => {
   const list = Object.entries(db.links)
     .map(([code, data]) => ({
@@ -193,11 +183,17 @@ app.get('/api/links', (req, res) => {
   res.json(list);
 });
 
-// ====================== REDIRECIONAMENTO ======================
+// Redirecionamento dos links curtos
 app.get('/:code', (req, res) => {
   const { code } = req.params;
 
-  if (code === 'api' || code.includes('.')) {
+  // Ignora arquivos estáticos e rotas conhecidas
+  if (
+    code === 'api' ||
+    code.includes('.') ||
+    code === 'app' ||
+    code === 'index'
+  ) {
     return res.status(404).send('Não encontrado');
   }
 
@@ -227,7 +223,6 @@ app.get('/:code', (req, res) => {
     `);
   }
 
-  // Conta o clique
   link.clicks += 1;
   link.last_clicked_at = new Date().toISOString();
   saveDB(db);
@@ -237,7 +232,6 @@ app.get('/:code', (req, res) => {
 
 // ====================== START ======================
 app.listen(PORT, () => {
-  console.log(`\n🚀 Klicky Shortener rodando!`);
-  console.log(`   Porta: ${PORT}`);
+  console.log(`\n🚀 Klicky rodando na porta ${PORT}`);
   console.log(`   Base URL: ${BASE_URL}\n`);
 });
